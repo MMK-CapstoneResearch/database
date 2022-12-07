@@ -1,18 +1,13 @@
 <?php 
-    $server = "localhost";
-    $user = "root";
-    $password = "";
-    $db = "sarreal_db";
-    $conn = mysqli_connect($server, $user, $password, $db);
-
-    if(!$conn){
-        die("Could not connect to server". mysqli_connect_error());
-    }
+    require "connect.php";
 ?>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Lab1</title>
         <link rel="stylesheet" href="index.css">
+        <!-- CSS only -->
+        <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> -->
         <meta name="author" content="Marion Alolino, Ryam Montana, Kim Justin Bustillo">
         <script>
             if ( window.history.replaceState ) {
@@ -127,6 +122,10 @@
                                                 <td style='color:white; padding:.5%;'><?php echo $products['retail_price'] ?></td>
                                                 <td style='color:white; padding:.5%;'><?php echo $products['quantity'] ?></td>
                                                 <td style='color:white; padding:.5%;'><?php echo $products['sold_items'] ?></td>
+                                                <td>
+                                                    <a href="edit.php?id=<?php echo $products['product_id'] ?>">Edit</a> |
+                                                    <a href="delete.php?id=<?php echo $products['product_id'] ?>">Delete</a>
+                                                </td>
                                             </tr>
                                         <?php
                                     }
@@ -165,8 +164,15 @@
                             $category_name = $_POST['category'];
                             $price = $_POST['price'];
                             $quantity = $_POST['quantity'];
+                            // fetch product table
+                            $fetch_qry = "SELECT sold_items FROM tbl_products WHERE product_name = '$product_name'";
+                            $sold_items= mysqli_query($conn, $fetch_qry);
+                            $tempvar = mysqli_fetch_array($sold_items);
+                            $updatedCount = (int)$tempvar + (int)$quantity - 1;
+                            $update_qry = "UPDATE tbl_products set sold_items= '$updatedCount' WHERE product_name='$product_name'";
                             $insert_query = "INSERT INTO tbl_sold(product_name, category, price_per_unit, quantity) VALUES('$product_name', '$category_name', '$price', '$quantity')";
                             $sql = mysqli_query($conn, $insert_query);
+                            $sql1 = mysqli_query($conn, $update_qry);
                         }
                     ?>
                 </div>
