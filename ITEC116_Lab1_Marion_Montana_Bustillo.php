@@ -179,7 +179,8 @@
                     <!-- most sold -->
                     <h2>Most Sold Product</h2>
                     <?php
-                        $select_sql = "SELECT product_name, category, price_per_unit, quantity FROM tbl_sold where quantity = (SELECT max(quantity) from tbl_sold);";
+                        $select_sql = "SELECT product_name, category, price_per_unit, MAX(total) AS total FROM (
+                            SELECT product_name, category, price_per_unit, SUM(quantity) AS total FROM tbl_sold GROUP BY product_name ORDER BY total DESC) as fuck;";
                         $select_qry = mysqli_query($conn, $select_sql);
                         $sold_item = mysqli_fetch_array($select_qry);
                     ?>
@@ -194,7 +195,7 @@
                             <td style='color:white; padding:.5%;'><?php echo $sold_item['product_name'] ?></td>
                             <td style='color:white; padding:.5%;'><?php echo $sold_item['category'] ?></td>
                             <td style='color:white; padding:.5%;'><?php echo $sold_item['price_per_unit'] ?></td>
-                            <td style='color:white; padding:.5%;'><?php echo $sold_item['quantity'] ?></td>
+                            <td style='color:white; padding:.5%;'><?php echo $sold_item['total'] ?></td>
                         </tr>
                     </table> 
                 </div>        
@@ -202,7 +203,8 @@
                     <!-- least sold -->
                     <h2>Least Sold Product</h2>
                     <?php
-                        $select_sql = "SELECT product_name, category, price_per_unit, quantity FROM tbl_sold where quantity = (SELECT min(quantity) from tbl_sold);";
+                        $select_sql = "SELECT product_name, category, price_per_unit, MIN(total) AS total FROM (
+                            SELECT product_name, category, price_per_unit, SUM(quantity) AS total FROM tbl_sold GROUP BY product_name ORDER BY total ASC) as fuck;";
                         $select_qry = mysqli_query($conn, $select_sql);
                         $sold_item = mysqli_fetch_array($select_qry);
                     ?>
@@ -217,7 +219,7 @@
                             <td style='color:white; padding:.5%;' ><?php echo $sold_item['product_name'] ?></td>
                             <td style='color:white; padding:.5%;'><?php echo $sold_item['category'] ?></td>
                             <td style='color:white; padding:.5%;'><?php echo $sold_item['price_per_unit'] ?></td>
-                            <td style='color:white; padding:.5%;'><?php echo $sold_item['quantity'] ?></td>
+                            <td style='color:white; padding:.5%;'><?php echo $sold_item['total'] ?></td>
                         </tr>
                     </table> 
                 </div>
