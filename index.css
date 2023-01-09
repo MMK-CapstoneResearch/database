@@ -2,11 +2,15 @@
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
+    background: black;
+}
+
+.twoTables{
+    background-color: black;
 }
 
 .expenses{
-    background: rgb(9,20,18);
-    background: linear-gradient(90deg, rgba(9,20,18,1) 59%, rgba(35,96,83,1) 80%, rgba(78,207,198,1) 97%);
+    padding: 5%;
     color: white;
     display: block;
     text-align: center;
@@ -51,6 +55,7 @@ input::-webkit-inner-spin-button {
     border: none;
     border-bottom: 2px cyan solid;
     color: white;
+    font-size: 0.8vw;
 }
 
 .expenses button{
@@ -69,42 +74,43 @@ input::-webkit-inner-spin-button {
 }
 
 .echo1{
-    padding-top: 2%;
+    padding-top: 5%;
     font-size: 0.8vw;
     color: white;
 }
 
 /* ================================================ */
 
-.productsdUh{
-    padding-top: 5%;
-    display: flex;
-    justify-content: center;
-    padding-bottom: 2%;
-    background: rgb(9,20,18);
-    background: linear-gradient(90deg, rgba(9,20,18,1) 59%, rgba(35,96,83,1) 80%, rgba(78,207,198,1) 97%);
-    color: white;
-    max-height: 500px;
-    overflow: hidden;
-}
-
 .addProduct{
-    margin-left: 15%;
-    margin-right: 1%;
+    color: white;
     display: block;
-    justify-content: center;
+    text-align: center;
+    padding-top: 5%;
 }
 
 .addProduct h2{
+    padding-top: 2%;
+    padding-bottom: 1%;
+    text-align: center;
     font-size: 1.5vw;
-    padding-bottom: 10%;
 }
 
 .addProduct form{
-    width: 180%;
-    padding: 10%;
-    border: 2px cyan solid;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2%;
+    text-align: left;
+    padding: 2%;
+    border: 2px solid cyan;
     border-radius: 10px;
+    width: 25%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .addProduct label{
@@ -113,12 +119,15 @@ input::-webkit-inner-spin-button {
 
 .addProduct input{
     width: 100%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding: 1.5%;
     background: none;
-    border: none;
     outline: none;
-    border-bottom: 2px solid cyan;
-    padding: 2%;
+    border: none;
+    border-bottom: 2px cyan solid;
     color: white;
+    font-size: 0.8vw;
 }
 
 .addProduct button{
@@ -132,33 +141,67 @@ input::-webkit-inner-spin-button {
     font-size: 0.8vw;
 }
 
-
 .addProduct button:hover{
     transform: scale(1.1);
 }
+
+
 /* ================================================ */
 
-.listofProducts{
-    margin-right: 10%;
-    display: block;
+.productsdUh{
+    padding-top: 10%;
+    display: flex;
+    padding-bottom: 2%;
+    color: white;
 }
 
-.listofProducts h2{
-    padding-bottom: 3%;
-    font-size: 1.5vw;
+.productsdUh .textExpenses h2{
     text-align: center;
+    font-size: 1.8vw;
+    margin-bottom: 2%;
 }
 
-.listofProducts table{
+.productsdUh .listofProducts{
+    justify-content: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 700px;
+    overflow: hidden;
+}
+
+.productsdUh .listofProducts table{
     border-collapse: collapse;
     border-spacing: 0;
-    width: 700px;
-    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1200px;
     border: 2px cyan solid;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: cyan;
+    border-radius: 10px; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: cyan; 
+  }
 
-.listofProducts table th{
+.productsdUh .listofProducts table th{
     font-size: 0.8vw;
     padding: 1%;
     color: white;
@@ -168,33 +211,11 @@ input::-webkit-inner-spin-button {
     padding: 2%;
 }
 
-/* width */
-::-webkit-scrollbar {
-    width: 5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
-    border-radius: 5px;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: cyan; 
-    border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: cyan; 
-  }
-
-
 /* ================================================ */
 
 .sProducts{
-    padding-top: 5%;
+    padding-top: 10%;
+    padding-bottom: 20%;
     display: flex;
     padding-left: 5%;
     padding-right: 5%;
@@ -202,10 +223,12 @@ input::-webkit-inner-spin-button {
     height: auto;
     justify-content: center;
     align-items: center;
-    background: rgb(9,20,18);
-    background: linear-gradient(90deg, rgba(9,20,18,1) 59%, rgba(35,96,83,1) 80%, rgba(78,207,198,1) 97%);
     color: white;
     padding-bottom: 5%;
+}
+
+.products1{
+    margin-right: 1%;
 }
 
 .products1 form{
@@ -220,6 +243,10 @@ input::-webkit-inner-spin-button {
     padding-bottom: 5%;
 }
 
+.products1 label{
+    font-size: 0.8vw;
+}
+
 .products1 input{
     width: 100%;
     background: none;
@@ -228,6 +255,7 @@ input::-webkit-inner-spin-button {
     border-bottom: 2px solid cyan;
     padding: 2%;
     color: white;
+    font-size: 0.8vw;
 }
 
 .products1 button{
@@ -262,6 +290,7 @@ input::-webkit-inner-spin-button {
     border: 1px solid cyan;
     color: white;
     width: 600px;
+    border-spacing: 0;
 }
 
 .center td{
@@ -276,6 +305,7 @@ input::-webkit-inner-spin-button {
     width: 500px;
     margin-right: auto;
     margin-left: auto;
+    border-spacing: 0;
 }
 
 .center2 td{
@@ -287,7 +317,7 @@ input::-webkit-inner-spin-button {
 
 .income{
     display: block;
-    margin-left: 2%;
+    margin-left: 3%;
     text-align: center;
 }
 
@@ -304,6 +334,7 @@ input::-webkit-inner-spin-button {
     margin-right: auto;
     width: 150px;
     border: 2px cyan solid;
+    border-spacing: 0;
 }
 
 .grossI th{
@@ -325,6 +356,7 @@ input::-webkit-inner-spin-button {
     margin-right: auto;
     width: 150px;
     border: 2px cyan solid;
+    border-spacing: 0;
 }
 
 .netI th{
@@ -332,3 +364,15 @@ input::-webkit-inner-spin-button {
     padding: 2%;
 }
 
+.hidden{
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    transition: all 0.5s;
+    filter: blur(5px);
+}
+
+.show{
+    opacity: 1;
+    filter: blur(0);
+}

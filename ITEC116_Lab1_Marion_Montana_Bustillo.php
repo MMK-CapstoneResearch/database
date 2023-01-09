@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Lab1</title>
         <link rel="stylesheet" href="index.css">
+        <script defer src="index.js"></script>
         <!-- CSS only -->
         <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> -->
         <meta name="author" content="Marion Alolino, Ryam Montana, Kim Justin Bustillo">
@@ -16,7 +17,9 @@
         </script>
     </head>
     <body>
-        <div class="expenses">
+
+        <section class = "hidden">
+        <div class = "expenses">
             <h2>EXPENSES</h2>
                 <form action="" method="post">
                     <label for="">Store Rental (/Month): </label><br>
@@ -56,11 +59,10 @@
                         </div>
                 </form>
         </div>
-        <div class = "productsdUh">
-            <div class = "addProduct">
-                <div>
-                    <h2>ADD PRODUCT</h2>
-                </div>
+        </section>
+        <section class = "hidden">
+        <div class = "addProduct">
+                <h2>ADD PRODUCT</h2>
                 <form method="post" autocomplete="off">
                     <label for="">Product Name</label><br>
                     <input type="text" name="product_name" id="" required>
@@ -79,7 +81,6 @@
                     <br><br>
                     <button type="submit" name="add_product">Add Product</button>
                 </form>
-                <div class = "php1">
                     <?php
                          
                         if(isset($_POST['add_product'])){
@@ -92,23 +93,27 @@
                             $sql = mysqli_query($conn, $insert_query);
                         }
                     ?>
-                </div>
+        </div>
+        </section>
+
+            <div class = "productsdUh">
+            <section class = "hidden">
+            <div class = "textExpenses" >
+                <h2>LIST OF PRODUCTS</h2>
             </div>
             <div class = "listofProducts" style="overflow-y:auto;"> 
-                <div>
-                    <h2>LIST OF PRODUCTS</h2>
-                </div>
-                <table border= double>
+                <table border = double>
                     <tr>
-                        <th>product_name</th>
-                        <th>category</th>
-                        <th>price</th>
-                        <th>retail_price</th>
-                        <th>quantity</th>
-                        <th>sold_items</th>
+                        <th>Product Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Retail Price</th>
+                        <th>Quantity</th>
+                        <th>Sold Items</th>
+                        <th>Actions</th>
                     </tr>
                     <tr>
-                        <div class = "echxo2">
+                        <div class = "echo2">
                             <?php
                                 $select_sql = "SELECT * FROM tbl_products";
                                 $select_qry = mysqli_query($conn, $select_sql);
@@ -116,15 +121,15 @@
                                     while($products = mysqli_fetch_array($select_qry)){
                                         ?>
                                             <tr>
-                                                <td style='color:white; padding:.5%;'><?php echo $products['product_name'] ?></td>
-                                                <td style='color:white; padding:.5%;'><?php echo $products['category'] ?></td>
-                                                <td style='color:white; padding:.5%;'><?php echo $products['price'] ?></td>
-                                                <td style='color:white; padding:.5%;'><?php echo $products['retail_price'] ?></td>
-                                                <td style='color:white; padding:.5%;'><?php echo $products['quantity'] ?></td>
-                                                <td style='color:white; padding:.5%;'><?php echo $products['sold_items'] ?></td>
-                                                <td>
-                                                    <a href="edit.php?id=<?php echo $products['product_id'] ?>">Edit</a> |
-                                                    <a href="delete.php?id=<?php echo $products['product_id'] ?>">Delete</a>
+                                                <td style='color:white; padding: 1%; text-align:center;'><?php echo $products['product_name'] ?></td>
+                                                <td style='color:white; padding: 1%; text-align:center;'><?php echo $products['category'] ?></td>
+                                                <td style='color:white; padding: 1%; text-align:center;'><?php echo $products['price'] ?></td>
+                                                <td style='color:white; padding: 1%; text-align:center;'><?php echo $products['retail_price'] ?></td>
+                                                <td style='color:white; padding: 1%; text-align:center;'><?php echo $products['quantity'] ?></td>
+                                                <td style='color:white; padding: 1%; text-align:center;'><?php echo $products['sold_items'] ?></td>
+                                                <td style='color:white; padding: 1%; text-align:center;'>
+                                                    <a style = 'color:cyan; text-decoration:none' href="edit.php?id=<?php echo $products['product_id'] ?>">Edit </a> or
+                                                    <a style = 'color:cyan; text-decoration:none' href="delete.php?id=<?php echo $products['product_id'] ?>">Delete</a>
                                                 </td>
                                             </tr>
                                         <?php
@@ -134,7 +139,8 @@
                         </div>
                     </tr>
                 </table>
-            </div>             
+            </div>      
+            </section>       
         </div>
         
 
@@ -165,14 +171,14 @@
                             $price = $_POST['price'];
                             $quantity = $_POST['quantity'];
                             // fetch product table
-                            $fetch_qry = "SELECT sold_items FROM tbl_products WHERE product_name = '$product_name'";
-                            $sold_items= mysqli_query($conn, $fetch_qry);
-                            $tempvar = mysqli_fetch_array($sold_items);
-                            $updatedCount = (int)$tempvar + (int)$quantity - 1;
+                            $fetch_qry = "SELECT sold_items FROM tbl_products WHERE product_name = '$product_name';";
+                            $items= mysqli_query($conn, $fetch_qry);
+                            $tempvar = mysqli_fetch_array($items);
+                            $updatedCount = (int)$tempvar['sold_items'] + (int)$quantity;
                             $update_qry = "UPDATE tbl_products set sold_items= '$updatedCount' WHERE product_name='$product_name'";
                             $insert_query = "INSERT INTO tbl_sold(product_name, category, price_per_unit, quantity) VALUES('$product_name', '$category_name', '$price', '$quantity')";
-                            $sql = mysqli_query($conn, $insert_query);
                             $sql1 = mysqli_query($conn, $update_qry);
+                            $sql = mysqli_query($conn, $insert_query);
                         }
                     ?>
                 </div>
@@ -185,22 +191,22 @@
                     <!-- most sold -->
                     <h2>Most Sold Product</h2>
                     <?php
-                        $select_sql = "SELECT product_name, category, price_per_unit, MAX(total) AS total FROM (
-                            SELECT product_name, category, price_per_unit, SUM(quantity) AS total FROM tbl_sold GROUP BY product_name ORDER BY total DESC) as fuck;";
+                        $select_sql = "SELECT product_name, category, retail_price, MAX(total) AS total FROM (
+                            SELECT product_name, category, retail_price, SUM(sold_items) AS total FROM tbl_products GROUP BY product_name ORDER BY total DESC) as most;";
                         $select_qry = mysqli_query($conn, $select_sql);
                         $sold_item = mysqli_fetch_array($select_qry);
                     ?>
                     <table class ="center" border = "single">
                     <tr>
-                        <td>Product_name</td>
+                        <td>Product Name</td>
                         <td>Category</td>
-                        <td>Price_Per_Unit</td>
+                        <td>Price per Unit</td>
                         <td>Quantity</td>
                     </tr>
                         <tr>
                             <td style='color:white; padding:.5%;'><?php echo $sold_item['product_name'] ?></td>
                             <td style='color:white; padding:.5%;'><?php echo $sold_item['category'] ?></td>
-                            <td style='color:white; padding:.5%;'><?php echo $sold_item['price_per_unit'] ?></td>
+                            <td style='color:white; padding:.5%;'><?php echo $sold_item['retail_price'] ?></td>
                             <td style='color:white; padding:.5%;'><?php echo $sold_item['total'] ?></td>
                         </tr>
                     </table> 
@@ -209,22 +215,22 @@
                     <!-- least sold -->
                     <h2>Least Sold Product</h2>
                     <?php
-                        $select_sql = "SELECT product_name, category, price_per_unit, MIN(total) AS total FROM (
-                            SELECT product_name, category, price_per_unit, SUM(quantity) AS total FROM tbl_sold GROUP BY product_name ORDER BY total ASC) as fuck;";
+                        $select_sql = "SELECT product_name, category, retail_price, MIN(total) AS total FROM (
+                            SELECT product_name, category, retail_price, SUM(sold_items) AS total FROM tbl_products GROUP BY product_name ORDER BY total ASC) as least;";
                         $select_qry = mysqli_query($conn, $select_sql);
                         $sold_item = mysqli_fetch_array($select_qry);
                     ?>
                     <table class = "center2" border= double>
                     <tr>
-                        <td>Product_name</td>
+                        <td>Product Name</td>
                         <td>Category</td>
-                        <td>Price_Per_Unit</td>
+                        <td>Price Per Unit</td>
                         <td>Quantity</td>
                     </tr>
                         <tr>
                             <td style='color:white; padding:.5%;' ><?php echo $sold_item['product_name'] ?></td>
                             <td style='color:white; padding:.5%;'><?php echo $sold_item['category'] ?></td>
-                            <td style='color:white; padding:.5%;'><?php echo $sold_item['price_per_unit'] ?></td>
+                            <td style='color:white; padding:.5%;'><?php echo $sold_item['retail_price'] ?></td>
                             <td style='color:white; padding:.5%;'><?php echo $sold_item['total'] ?></td>
                         </tr>
                     </table> 
@@ -236,12 +242,12 @@
                 <div class = "grossIncome">
                 <h2>Gross Income</h2>
                 <?php
-                    $select_sql = "SELECT price_per_unit, quantity FROM `tbl_sold`;";
+                    $select_sql = "SELECT retail_price, quantity FROM `tbl_products`;";
                     $select_qry = mysqli_query($conn, $select_sql);
                     $gross_amount =0;
                     if(mysqli_num_rows($select_qry)){
                         while($sold_item = mysqli_fetch_array($select_qry)){
-                            $gross_amount = $gross_amount + ($sold_item['price_per_unit'] * $sold_item['quantity']);
+                            $gross_amount = $gross_amount + ($sold_item['retail_price'] * $sold_item['quantity']);
                         }
                     }
                 ?>
@@ -258,7 +264,8 @@
                 <div class = "netIncome">
                     <h2>Net Income</h2>
                     <?php
-                        $select_sql = "SELECT price_per_unit, tbl_sold.quantity as sold_price, tbl_products.price AS org_price FROM tbl_sold INNER JOIN tbl_products ON tbl_sold.product_name = tbl_products.product_name;";
+                        // $select_sql = "SELECT price_per_unit, tbl_sold.quantity as sold_price, tbl_products.price AS org_price FROM tbl_sold INNER JOIN tbl_products ON tbl_sold.product_name = tbl_products.product_name;";
+                        $select_sql = "SELECT retail_price as sold_price, price AS org_price FROM tbl_products;";
                         $select_qry = mysqli_query($conn, $select_sql);
                         $net_amount =0;
                         if(mysqli_num_rows($select_qry)){
@@ -266,7 +273,7 @@
                                 $net_amount = $net_amount + ($sold_item['sold_price'] * $sold_item['org_price']);
                             }
                         }
-                        $net_amount =($gross_amount - $net_amount)/4;
+                        $net_amount =($net_amount - $gross_amount)/4;
                     ?>
                     <table border = double class ="netI">
                         <tr>
